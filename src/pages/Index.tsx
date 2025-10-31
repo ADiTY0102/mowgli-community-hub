@@ -1,12 +1,173 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Heart, PawPrint, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
+  const { user, signOut } = useAuth();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Hero Video Section */}
+      <section className="relative h-screen w-full">
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 to-background z-10" />
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <div className="text-center space-y-6 px-4">
+            <h1 className="text-6xl md:text-8xl font-bold text-foreground">
+              MOWGLIANS
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground">
+              Give Love, Find Love - Adopt or Donate a Pet Today
+            </p>
+            <div className="flex gap-4 justify-center">
+              {user ? (
+                <>
+                  <Button size="lg" asChild>
+                    <Link to="/profile">My Profile</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" onClick={signOut}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button size="lg" asChild>
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+        {/* Placeholder for video - will be replaced with actual video */}
+        <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
+      </section>
+
+      {/* Three Cards Section */}
+      <section className="py-20 px-4 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8">
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <Heart className="w-12 h-12 mb-4 text-primary" />
+              <CardTitle>Adopt a Pet</CardTitle>
+              <CardDescription>
+                Find your perfect companion from our loving pets
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Browse through pets ready for adoption and give them a forever home.
+              </p>
+              <Button className="w-full">View Pets</Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <PawPrint className="w-12 h-12 mb-4 text-secondary" />
+              <CardTitle>Donate a Pet</CardTitle>
+              <CardDescription>
+                Help pets find their new loving families
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                List a pet for donation and help them find a caring home.
+              </p>
+              <Button className="w-full" variant="secondary">
+                Donate Pet
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <DollarSign className="w-12 h-12 mb-4 text-accent" />
+              <CardTitle>Fund Raise</CardTitle>
+              <CardDescription>
+                Support our mission to help more pets
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Every contribution helps us care for more animals in need.
+              </p>
+              <div className="mb-4">
+                <p className="text-sm text-muted-foreground">Total Raised</p>
+                <p className="text-2xl font-bold text-primary">₹0</p>
+              </div>
+              <Button className="w-full" variant="default">
+                Donate Funds
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-20 px-4 bg-muted/50">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl font-bold text-center mb-12">Gallery</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <div
+                key={i}
+                className="aspect-square bg-gradient-to-br from-primary/30 to-secondary/30 rounded-lg"
+              />
+            ))}
+          </div>
+          <div className="text-center">
+            <Button variant="outline" size="lg">
+              View More
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Media */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8">Connect With Us</h2>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Button variant="outline" size="lg" asChild>
+              <a
+                href="https://www.instagram.com/solapurpet"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a
+                href="https://chat.whatsapp.com/DoiiNrPW3cFE1Guon2AWIL"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp Community
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a
+                href="https://youtu.be/vJyGVfdaHlE"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                YouTube
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-muted py-12 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-xl font-bold mb-2">MOWGLIANS</p>
+          <p className="text-muted-foreground">
+            Making the world a better place for pets, one adoption at a time.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
