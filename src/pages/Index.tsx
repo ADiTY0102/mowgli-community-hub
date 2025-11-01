@@ -3,49 +3,69 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, PawPrint, DollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
+import { GallerySection } from "@/components/home/GallerySection";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const { user, signOut } = useAuth();
 
+  const { data: metrics } = useQuery({
+    queryKey: ["site-metrics"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("site_metrics")
+        .select("*")
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+  });
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Video Section */}
-      <section className="relative h-screen w-full">
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 to-background z-10" />
+      <section className="relative h-screen w-full overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
-          <div className="text-center space-y-6 px-4">
-            <h1 className="text-6xl md:text-8xl font-bold text-foreground">
+          <div className="text-center space-y-6 px-4 animate-fade-in">
+            <h1 className="text-6xl md:text-8xl font-bold text-foreground drop-shadow-lg">
               MOWGLIANS
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground">
+            <p className="text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center flex-wrap">
               {user ? (
                 <>
-                  <Button size="lg" asChild>
+                  <Button size="lg" asChild className="shadow-lg hover:shadow-xl">
                     <Link to="/profile">My Profile</Link>
                   </Button>
-                  <Button size="lg" variant="outline" onClick={signOut}>
+                  <Button size="lg" variant="outline" onClick={signOut} className="shadow-lg hover:shadow-xl">
                     Sign Out
                   </Button>
                 </>
               ) : (
-                <Button size="lg" asChild>
+                <Button size="lg" asChild className="shadow-lg hover:shadow-xl">
                   <Link to="/auth">Get Started</Link>
                 </Button>
               )}
             </div>
           </div>
         </div>
-        {/* Placeholder for video - will be replaced with actual video */}
-        <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20" />
+        {/* Placeholder for video - will be replaced with actual video by user */}
+        <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 animate-pulse" />
       </section>
 
       {/* Three Cards Section */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
+      <section className="py-20 px-4 max-w-7xl mx-auto animate-fade-in">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4">How You Can Help</h2>
+          <p className="text-xl text-muted-foreground">Together, we can make a difference</p>
+        </div>
         <div className="grid md:grid-cols-3 gap-8">
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2">
             <CardHeader>
               <Heart className="w-12 h-12 mb-4 text-primary" />
               <CardTitle>Adopt a Pet</CardTitle>
@@ -61,7 +81,7 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2">
             <CardHeader>
               <PawPrint className="w-12 h-12 mb-4 text-secondary" />
               <CardTitle>Donate a Pet</CardTitle>
@@ -73,13 +93,13 @@ const Index = () => {
               <p className="text-muted-foreground mb-4">
                 List a pet for donation and help them find a caring home.
               </p>
-              <Button className="w-full" variant="secondary">
-                Donate Pet
+              <Button className="w-full" variant="secondary" asChild>
+                <Link to={user ? "/profile?tab=donate" : "/auth"}>Donate Pet</Link>
               </Button>
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow">
+          <Card className="hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2">
             <CardHeader>
               <DollarSign className="w-12 h-12 mb-4 text-accent" />
               <CardTitle>Fund Raise</CardTitle>
@@ -93,10 +113,12 @@ const Index = () => {
               </p>
               <div className="mb-4">
                 <p className="text-sm text-muted-foreground">Total Raised</p>
-                <p className="text-2xl font-bold text-primary">₹0</p>
+                <p className="text-2xl font-bold text-primary">
+                  ₹{Number(metrics?.total_funds || 0).toLocaleString()}
+                </p>
               </div>
-              <Button className="w-full" variant="default">
-                Donate Funds
+              <Button className="w-full" variant="default" asChild>
+                <Link to="/fundraising">Donate Funds</Link>
               </Button>
             </CardContent>
           </Card>
@@ -104,24 +126,7 @@ const Index = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-20 px-4 bg-muted/50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Gallery</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div
-                key={i}
-                className="aspect-square bg-gradient-to-br from-primary/30 to-secondary/30 rounded-lg"
-              />
-            ))}
-          </div>
-          <div className="text-center">
-            <Button variant="outline" size="lg">
-              View More
-            </Button>
-          </div>
-        </div>
-      </section>
+      <GallerySection />
 
       {/* Social Media */}
       <section className="py-20 px-4">

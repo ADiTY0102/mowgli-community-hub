@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DonatePetForm } from "@/components/user/DonatePetForm";
 import { AdoptionRequests } from "@/components/user/AdoptionRequests";
+import { EditProfileForm } from "@/components/user/EditProfileForm";
 
 const UserProfile = () => {
   const { user, signOut, loading } = useAuth();
@@ -89,9 +90,7 @@ const UserProfile = () => {
                 <CardTitle>Manage Profile</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Profile management features will connect to your Java backend.
-                </p>
+                <EditProfileForm userId={user.id} />
               </CardContent>
             </Card>
           </TabsContent>

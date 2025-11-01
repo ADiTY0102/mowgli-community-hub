@@ -21,13 +21,14 @@ export const DonatePetForm = ({ userId }: { userId: string }) => {
   const donateMutation = useMutation({
     mutationFn: async () => {
       // Get user profile id
-      const { data: profile } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from("users_profile")
         .select("id")
         .eq("user_id", userId)
-        .single();
+        .maybeSingle();
 
-      if (!profile) throw new Error("Profile not found");
+      if (profileError) throw profileError;
+      if (!profile) throw new Error("Profile not found. Please contact support.");
 
       // Create pet
       const { data: pet, error: petError } = await supabase
