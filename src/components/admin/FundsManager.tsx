@@ -17,7 +17,7 @@ export const FundsManager = () => {
       return data;
     },
   });
-
+// updated
   const { data: metrics } = useQuery({
     queryKey: ["site-metrics"],
     queryFn: async () => {

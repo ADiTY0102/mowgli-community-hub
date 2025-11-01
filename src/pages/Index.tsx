@@ -30,9 +30,9 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-6 px-4 animate-fade-in">
-            <h1 className="text-6xl md:text-8xl font-bold text-foreground drop-shadow-lg">
+            <h1 className="text-6xl md:text-8xl mb-10 font-bold text-foreground drop-shadow-lg">
               MOWGLIANS
-            </h1>
+            </h1> <br />
             <p className="text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
             </p>
@@ -54,8 +54,16 @@ const Index = () => {
             </div>
           </div>
         </div>
-        {/* Placeholder for video - will be replaced with actual video by user */}
-        <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 animate-pulse" />
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </section>
 
       {/* Three Cards Section */}

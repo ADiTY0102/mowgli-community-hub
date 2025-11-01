@@ -71,8 +71,8 @@ export const AuthForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
+    <div className="w-full max-w-md p-4">
+      <Card className="w-full backdrop-blur-sm bg-background/80 shadow-xl">
         <CardHeader>
           <CardTitle className="text-2xl text-center">
             {isLogin ? "Welcome Back" : "Join MOWGLIANS"}

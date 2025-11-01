@@ -16,7 +16,7 @@ export const GallerySection = () => {
       return data;
     },
   });
-
+// updated
   return (
     <section className="py-20 px-4 bg-muted/50">
       <div className="max-w-7xl mx-auto">

@@ -120,3 +120,4 @@ export const AdoptionsManager = () => {
     </div>
   );
 };
+// updated

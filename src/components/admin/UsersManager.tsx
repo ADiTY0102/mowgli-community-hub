@@ -61,7 +61,7 @@ export const UsersManager = () => {
   });
 
   if (isLoading) return <div>Loading users...</div>;
-
+// updated
   return (
     <div className="rounded-md border">
       <Table>

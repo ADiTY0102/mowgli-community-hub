@@ -41,7 +41,7 @@ const AdminDashboard = () => {
   if (!isAdmin) {
     return <Navigate to="/profile" />;
   }
-  
+  // updated
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto">
