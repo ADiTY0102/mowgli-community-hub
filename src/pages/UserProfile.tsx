@@ -3,6 +3,8 @@ import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DonatePetForm } from "@/components/user/DonatePetForm";
+import { AdoptionRequests } from "@/components/user/AdoptionRequests";
 
 const UserProfile = () => {
   const { user, signOut, loading } = useAuth();
@@ -65,9 +67,7 @@ const UserProfile = () => {
                 <CardTitle>Donate a Pet</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Pet donation form will connect to your Java backend API.
-                </p>
+                <DonatePetForm userId={user.id} />
               </CardContent>
             </Card>
           </TabsContent>
@@ -78,9 +78,7 @@ const UserProfile = () => {
                 <CardTitle>My Adoption Requests</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Your adoption requests will be fetched from your Java backend.
-                </p>
+                <AdoptionRequests userId={user.id} />
               </CardContent>
             </Card>
           </TabsContent>

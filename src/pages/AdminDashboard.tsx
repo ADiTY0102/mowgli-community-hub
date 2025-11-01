@@ -1,13 +1,36 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Navigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UsersManager } from "@/components/admin/UsersManager";
+import { AdoptionsManager } from "@/components/admin/AdoptionsManager";
+import { DonationsManager } from "@/components/admin/DonationsManager";
+import { FundsManager } from "@/components/admin/FundsManager";
 
 const AdminDashboard = () => {
   const { user, signOut, loading } = useAuth();
 
-  if (loading) {
+  const { data: isAdmin, isLoading: roleLoading } = useQuery({
+    queryKey: ["user-role", user?.id],
+    queryFn: async () => {
+      if (!user) return false;
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      
+      if (error) throw error;
+      return !!data;
+    },
+    enabled: !!user,
+  });
+
+  if (loading || roleLoading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
@@ -15,7 +38,9 @@ const AdminDashboard = () => {
     return <Navigate to="/auth" />;
   }
 
-  // Note: Role checking will be done via your Java backend
+  if (!isAdmin) {
+    return <Navigate to="/profile" />;
+  }
   
   return (
     <div className="min-h-screen bg-background p-6">
@@ -41,9 +66,7 @@ const AdminDashboard = () => {
                 <CardTitle>All Users</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  User data will be fetched from your Java backend API.
-                </p>
+                <UsersManager />
               </CardContent>
             </Card>
           </TabsContent>
@@ -54,9 +77,7 @@ const AdminDashboard = () => {
                 <CardTitle>Manage Adoptions</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Adoption requests will be managed through your Java backend.
-                </p>
+                <AdoptionsManager />
               </CardContent>
             </Card>
           </TabsContent>
@@ -67,9 +88,7 @@ const AdminDashboard = () => {
                 <CardTitle>Manage Donations</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Pet donation requests will be managed through your Java backend.
-                </p>
+                <DonationsManager />
               </CardContent>
             </Card>
           </TabsContent>
@@ -80,9 +99,7 @@ const AdminDashboard = () => {
                 <CardTitle>Fund Transactions</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Razorpay transactions will be fetched from your Java backend.
-                </p>
+                <FundsManager />
               </CardContent>
             </Card>
           </TabsContent>
