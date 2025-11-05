@@ -1,15 +1,41 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, PawPrint, DollarSign } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Heart, PawPrint, DollarSign, User, LogOut, Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { GallerySection } from "@/components/home/GallerySection";
 import { Footer } from "@/components/home/Footer";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useState, useEffect } from "react";
 
 const Index = () => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Check if user is admin and redirect to dashboard
+  const { data: isAdmin } = useQuery({
+    queryKey: ["user-role", user?.id],
+    queryFn: async () => {
+      if (!user) return false;
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      return !!data;
+    },
+    enabled: !!user,
+  });
+
+  useEffect(() => {
+    if (isAdmin) {
+      navigate("/admin-dashboard");
+    }
+  }, [isAdmin, navigate]);
 
   const { data: metrics } = useQuery({
     queryKey: ["site-metrics"],
@@ -26,8 +52,45 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link to="/" className="text-xl font-bold text-primary">
+              MOWGLIANS
+            </Link>
+            
+            <div className="flex items-center gap-2">
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                      <User className="h-5 w-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => navigate("/profile")}>
+                      <User className="h-4 w-4 mr-2" />
+                      Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={signOut} className="text-destructive">
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
+                  Login
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Video Section */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section className="relative h-screen w-full overflow-hidden mt-16">
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">

@@ -63,16 +63,16 @@ export const DonationsManager = () => {
   if (isLoading) return <div>Loading donation requests...</div>;
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Donor</TableHead>
-            <TableHead>Pet Details</TableHead>
-            <TableHead>Contact</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead className="min-w-[120px]">Donor</TableHead>
+            <TableHead className="min-w-[180px]">Pet Details</TableHead>
+            <TableHead className="min-w-[150px]">Contact</TableHead>
+            <TableHead className="min-w-[120px]">Date</TableHead>
+            <TableHead className="min-w-[100px]">Status</TableHead>
+            <TableHead className="min-w-[180px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -98,7 +98,7 @@ export const DonationsManager = () => {
                   <div className="text-muted-foreground">{request.user?.phone}</div>
                 </div>
               </TableCell>
-              <TableCell>{format(new Date(request.created_at), "PPP")}</TableCell>
+              <TableCell className="whitespace-nowrap">{format(new Date(request.created_at), "PP")}</TableCell>
               <TableCell>
                 <Badge
                   variant={
@@ -113,10 +113,11 @@ export const DonationsManager = () => {
                 </Badge>
               </TableCell>
               <TableCell>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-nowrap">
                   <Button
                     size="sm"
                     variant="outline"
+                    className="whitespace-nowrap"
                     onClick={() =>
                       updateStatusMutation.mutate({ id: request.id, status: "approved" })
                     }
@@ -127,6 +128,7 @@ export const DonationsManager = () => {
                   <Button
                     size="sm"
                     variant="outline"
+                    className="whitespace-nowrap"
                     onClick={() =>
                       updateStatusMutation.mutate({ id: request.id, status: "rejected" })
                     }

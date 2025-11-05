@@ -29,11 +29,11 @@ const UserProfile = () => {
         </div>
 
         <Tabs defaultValue="info" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 gap-1">
-            <TabsTrigger value="info">Profile Info</TabsTrigger>
-            <TabsTrigger value="donate">Donate Pet</TabsTrigger>
-            <TabsTrigger value="adopt">Adoption Requests</TabsTrigger>
-            <TabsTrigger value="manage">Manage Profile</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 gap-1 h-auto">
+            <TabsTrigger value="info" className="text-xs sm:text-sm">Profile Info</TabsTrigger>
+            <TabsTrigger value="donate" className="text-xs sm:text-sm">Donate Pet</TabsTrigger>
+            <TabsTrigger value="adopt" className="text-xs sm:text-sm">Adoptions</TabsTrigger>
+            <TabsTrigger value="manage" className="text-xs sm:text-sm">Manage</TabsTrigger>
           </TabsList>
 
           <TabsContent value="info">

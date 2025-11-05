@@ -64,16 +64,16 @@ export const AdoptionsManager = () => {
   if (isLoading) return <div>Loading adoption requests...</div>;
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>User</TableHead>
-            <TableHead>Pet</TableHead>
-            <TableHead>Contact</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead className="min-w-[120px]">User</TableHead>
+            <TableHead className="min-w-[150px]">Pet</TableHead>
+            <TableHead className="min-w-[150px]">Contact</TableHead>
+            <TableHead className="min-w-[120px]">Date</TableHead>
+            <TableHead className="min-w-[100px]">Status</TableHead>
+            <TableHead className="min-w-[180px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -89,7 +89,7 @@ export const AdoptionsManager = () => {
                   <div className="text-muted-foreground">{request.user?.phone}</div>
                 </div>
               </TableCell>
-              <TableCell>{format(new Date(request.created_at), "PPP")}</TableCell>
+              <TableCell className="whitespace-nowrap">{format(new Date(request.created_at), "PP")}</TableCell>
               <TableCell>
                 <Badge
                   variant={
@@ -104,10 +104,11 @@ export const AdoptionsManager = () => {
                 </Badge>
               </TableCell>
               <TableCell>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-nowrap">
                   <Button
                     size="sm"
                     variant="outline"
+                    className="whitespace-nowrap"
                     onClick={() =>
                       updateStatusMutation.mutate({ id: request.id, status: "approved" })
                     }
@@ -118,6 +119,7 @@ export const AdoptionsManager = () => {
                   <Button
                     size="sm"
                     variant="outline"
+                    className="whitespace-nowrap"
                     onClick={() =>
                       updateStatusMutation.mutate({ id: request.id, status: "rejected" })
                     }

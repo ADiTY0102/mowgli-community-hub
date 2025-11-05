@@ -36,25 +36,12 @@ export const GalleryUpload = () => {
         .from("gallery_images")
         .getPublicUrl(filePath);
 
-      // Get user profile ID
-      const { data: userData } = await supabase.auth.getUser();
-      
-      // Fetch users_profile.id instead of auth.uid()
-      const { data: profileData, error: profileError } = await supabase
-        .from("users_profile")
-        .select("id")
-        .eq("user_id", userData.user?.id)
-        .single();
-      
-      if (profileError) throw new Error("Could not find user profile");
-
-      // Save to gallery table
+      // Save to gallery table (uploaded_by is nullable now)
       const { error: insertError } = await supabase
         .from("gallery")
         .insert({
           image_url: publicUrl,
           description: description || null,
-          uploaded_by: profileData.id,
         });
 
       if (insertError) throw insertError;

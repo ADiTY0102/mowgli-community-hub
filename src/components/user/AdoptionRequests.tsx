@@ -34,14 +34,14 @@ export const AdoptionRequests = ({ userId }: { userId: string }) => {
   if (!requests?.length) return <div className="text-muted-foreground">No adoption requests yet.</div>;
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Pet</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Admin Comment</TableHead>
+            <TableHead className="min-w-[180px]">Pet</TableHead>
+            <TableHead className="min-w-[120px]">Date</TableHead>
+            <TableHead className="min-w-[100px]">Status</TableHead>
+            <TableHead className="min-w-[150px]">Admin Comment</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -53,18 +53,18 @@ export const AdoptionRequests = ({ userId }: { userId: string }) => {
                     <img
                       src={request.pet.image_url}
                       alt={request.pet.name}
-                      className="h-10 w-10 rounded-full object-cover"
+                      className="h-10 w-10 rounded-full object-cover flex-shrink-0"
                     />
                   )}
-                  <div>
-                    <div className="font-medium">{request.pet?.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                  <div className="min-w-0">
+                    <div className="font-medium truncate">{request.pet?.name}</div>
+                    <div className="text-sm text-muted-foreground truncate">
                       {request.pet?.breed} - {request.pet?.type}
                     </div>
                   </div>
                 </div>
               </TableCell>
-              <TableCell>{format(new Date(request.created_at), "PPP")}</TableCell>
+              <TableCell className="whitespace-nowrap">{format(new Date(request.created_at), "PP")}</TableCell>
               <TableCell>
                 <Badge
                   variant={
@@ -74,11 +74,12 @@ export const AdoptionRequests = ({ userId }: { userId: string }) => {
                       ? "destructive"
                       : "secondary"
                   }
+                  className="whitespace-nowrap"
                 >
                   {request.request_status}
                 </Badge>
               </TableCell>
-              <TableCell>{request.admin_comment || "-"}</TableCell>
+              <TableCell className="max-w-[200px] truncate">{request.admin_comment || "-"}</TableCell>
             </TableRow>
           ))}
         </TableBody>
