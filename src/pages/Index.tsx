@@ -33,7 +33,7 @@ const Index = () => {
 
   useEffect(() => {
     if (isAdmin) {
-      navigate("/admin-dashboard");
+      navigate("/admin");
     }
   }, [isAdmin, navigate]);
 
@@ -56,15 +56,13 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to="/" className="text-xl font-bold text-primary">
-              MOWGLIANS
-            </Link>
+            <div className="flex-1"></div>
             
             <div className="flex items-center gap-2">
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className="rounded-full">
                       <User className="h-5 w-5" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -95,7 +93,7 @@ const Index = () => {
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">
             <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
-              MOWGLIANS
+              Solapur Pets
             </h1> <br />
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
