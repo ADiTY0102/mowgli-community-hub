@@ -1,21 +1,20 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, PawPrint, DollarSign, User, LogOut, Menu, X } from "lucide-react";
+import { Heart, PawPrint, DollarSign } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { GalleryCarousel } from "@/components/home/GalleryCarousel";
 import { FeedbackForm } from "@/components/home/FeedbackForm";
 import { FeedbacksSection } from "@/components/home/FeedbacksSection";
 import { Footer } from "@/components/home/Footer";
+import { Navbar1 } from "@/components/ui/navbar-1";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 const Index = () => {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Check if user is admin and redirect to dashboard
   const { data: isAdmin } = useQuery({
@@ -55,65 +54,28 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="text-xl font-bold text-primary">
-              Solapur Pets
-            </Link>
-            
-            <div className="flex items-center gap-2">
-              {user ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="rounded-full">
-                      <User className="h-5 w-5" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => navigate("/profile")}>
-                      <User className="h-4 w-4 mr-2" />
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={signOut} className="text-destructive">
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
-                  Login
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
+      <div className="fixed top-0 left-0 right-0 z-50">
+        <Navbar1 />
+      </div>
 
       {/* Hero Video Section */}
-      <section className="relative h-screen w-full overflow-hidden mt-16">
+      <section className="relative h-screen w-full overflow-hidden mt-20">
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">
             <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
-              Solapur Pets
-            </h1> <br />
+              Mowglians
+            </h1>
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
             </p>
             <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
               {user ? (
-                <>
-                  <Button size="lg" asChild className="shadow-lg hover:shadow-xl">
-                    <Link to="/profile">My Profile</Link>
-                  </Button>
-                  <Button size="lg" variant="outline" onClick={signOut} className="shadow-lg hover:shadow-xl">
-                    Sign Out
-                  </Button>
-                </>
+                <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
+                  <Link to="/profile">My Profile</Link>
+                </Button>
               ) : (
-                <Button size="lg" asChild className="shadow-lg hover:shadow-xl">
+                <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
                   <Link to="/auth">Get Started</Link>
                 </Button>
               )}

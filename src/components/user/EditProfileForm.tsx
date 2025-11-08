@@ -29,6 +29,8 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
     phone: profile?.phone || "",
     address: profile?.address || "",
   });
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(profile?.profile_picture_url || null);
 
   // Update form data when profile loads
   useState(() => {
@@ -38,24 +40,60 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
         phone: profile.phone || "",
         address: profile.address || "",
       });
+      setPreviewUrl(profile.profile_picture_url || null);
     }
   });
 
   const updateMutation = useMutation({
     mutationFn: async () => {
+      console.log("Updating user profile...", { userId, formData, hasProfilePicture: !!profilePicture });
+      
+      let profilePictureUrl = profile?.profile_picture_url;
+
+      // Upload profile picture if provided
+      if (profilePicture) {
+        console.log("Uploading new profile picture...");
+        const fileExt = profilePicture.name.split('.').pop();
+        const fileName = `${userId}-${Date.now()}.${fileExt}`;
+        const filePath = `${userId}/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('gallery_images')
+          .upload(filePath, profilePicture);
+
+        if (uploadError) {
+          console.error("Profile picture upload error:", uploadError);
+          throw uploadError;
+        }
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('gallery_images')
+          .getPublicUrl(filePath);
+
+        console.log("Profile picture uploaded successfully:", publicUrl);
+        profilePictureUrl = publicUrl;
+      }
+
       const { error } = await supabase
         .from("users_profile")
         .update({
           full_name: formData.full_name,
           phone: formData.phone,
           address: formData.address,
+          profile_picture_url: profilePictureUrl,
         })
         .eq("user_id", userId);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Profile update error:", error);
+        throw error;
+      }
+      console.log("Profile updated successfully!");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-profile", userId] });
+      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+      setProfilePicture(null);
       toast({
         title: "Profile updated!",
         description: "Your profile information has been saved.",
@@ -80,6 +118,36 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
       }}
       className="space-y-4"
     >
+      <div className="space-y-2">
+        <Label htmlFor="profilePicture">Profile Picture</Label>
+        {previewUrl && (
+          <div className="mb-2">
+            <img
+              src={previewUrl}
+              alt="Profile preview"
+              className="w-24 h-24 rounded-full object-cover border-2 border-border"
+            />
+          </div>
+        )}
+        <Input
+          id="profilePicture"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0] || null;
+            setProfilePicture(file);
+            if (file) {
+              const url = URL.createObjectURL(file);
+              setPreviewUrl(url);
+              console.log("Profile picture selected:", file.name);
+            }
+          }}
+        />
+        <p className="text-xs text-muted-foreground">
+          This will be displayed in your feedbacks
+        </p>
+      </div>
+
       <div className="space-y-2">
         <Label htmlFor="email">Email (Cannot be changed)</Label>
         <Input id="email" value={profile?.email || ""} disabled />
