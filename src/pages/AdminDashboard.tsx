@@ -9,7 +9,7 @@ import { UsersManager } from "@/components/admin/UsersManager";
 import { AdoptionsManager } from "@/components/admin/AdoptionsManager";
 import { DonationsManager } from "@/components/admin/DonationsManager";
 import { FundsManager } from "@/components/admin/FundsManager";
-import { GalleryUpload } from "@/components/admin/GalleryUpload";
+import { GalleryManager } from "@/components/admin/GalleryManager";
 
 const AdminDashboard = () => {
   const { user, signOut, loading } = useAuth();
@@ -109,10 +109,10 @@ const AdminDashboard = () => {
           <TabsContent value="gallery">
             <Card>
               <CardHeader>
-                <CardTitle>Upload Gallery Images</CardTitle>
+                <CardTitle>Gallery Management</CardTitle>
               </CardHeader>
               <CardContent>
-                <GalleryUpload />
+                <GalleryManager />
               </CardContent>
             </Card>
           </TabsContent>

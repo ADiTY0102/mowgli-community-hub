@@ -17,6 +17,7 @@ export const AuthForm = () => {
     password: "",
     phone: "",
     address: "",
+    profilePicture: null as File | null,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,7 +40,8 @@ export const AuthForm = () => {
         
         navigate("/");
       } else {
-        const { error } = await supabase.auth.signUp({
+        // Sign up the user first
+        const { data: authData, error: signUpError } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
           options: {
@@ -52,7 +54,39 @@ export const AuthForm = () => {
           },
         });
 
-        if (error) throw error;
+        if (signUpError) throw signUpError;
+
+        // If profile picture is provided, upload it
+        if (formData.profilePicture && authData.user) {
+          console.log("Uploading profile picture...");
+          const fileExt = formData.profilePicture.name.split('.').pop();
+          const fileName = `${authData.user.id}-${Date.now()}.${fileExt}`;
+          const filePath = `${authData.user.id}/${fileName}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from('gallery_images')
+            .upload(filePath, formData.profilePicture);
+
+          if (uploadError) {
+            console.error("Profile picture upload error:", uploadError);
+          } else {
+            const { data: { publicUrl } } = supabase.storage
+              .from('gallery_images')
+              .getPublicUrl(filePath);
+
+            console.log("Profile picture uploaded:", publicUrl);
+
+            // Update user profile with picture URL
+            const { error: updateError } = await supabase
+              .from('users_profile')
+              .update({ profile_picture_url: publicUrl })
+              .eq('user_id', authData.user.id);
+
+            if (updateError) {
+              console.error("Error updating profile picture:", updateError);
+            }
+          }
+        }
 
         toast({
           title: "Account created!",
@@ -120,6 +154,20 @@ export const AuthForm = () => {
                       setFormData({ ...formData, address: e.target.value })
                     }
                   />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="profilePicture">Profile Picture (Optional)</Label>
+                  <Input
+                    id="profilePicture"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setFormData({ ...formData, profilePicture: e.target.files?.[0] || null })
+                    }
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    This will be used for your feedbacks
+                  </p>
                 </div>
               </>
             )}

@@ -98,6 +98,36 @@ export type Database = {
           },
         ]
       }
+      feedbacks: {
+        Row: {
+          created_at: string | null
+          feedback_text: string
+          id: string
+          user_designation: string | null
+          user_id: string
+          user_name: string
+          user_photo_url: string
+        }
+        Insert: {
+          created_at?: string | null
+          feedback_text: string
+          id?: string
+          user_designation?: string | null
+          user_id: string
+          user_name: string
+          user_photo_url: string
+        }
+        Update: {
+          created_at?: string | null
+          feedback_text?: string
+          id?: string
+          user_designation?: string | null
+          user_id?: string
+          user_name?: string
+          user_photo_url?: string
+        }
+        Relationships: []
+      }
       fund_transactions: {
         Row: {
           amount: number
@@ -272,6 +302,7 @@ export type Database = {
           full_name: string
           id: string
           phone: string | null
+          profile_picture_url: string | null
           updated_at: string | null
           user_id: string
         }
@@ -282,6 +313,7 @@ export type Database = {
           full_name: string
           id?: string
           phone?: string | null
+          profile_picture_url?: string | null
           updated_at?: string | null
           user_id: string
         }
@@ -292,6 +324,7 @@ export type Database = {
           full_name?: string
           id?: string
           phone?: string | null
+          profile_picture_url?: string | null
           updated_at?: string | null
           user_id?: string
         }

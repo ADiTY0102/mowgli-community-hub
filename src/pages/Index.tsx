@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, PawPrint, DollarSign, User, LogOut, Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { GallerySection } from "@/components/home/GallerySection";
+import { GalleryCarousel } from "@/components/home/GalleryCarousel";
+import { FeedbackForm } from "@/components/home/FeedbackForm";
+import { FeedbacksSection } from "@/components/home/FeedbacksSection";
 import { Footer } from "@/components/home/Footer";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -56,7 +58,9 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex-1"></div>
+            <Link to="/" className="text-xl font-bold text-primary">
+              Solapur Pets
+            </Link>
             
             <div className="flex items-center gap-2">
               {user ? (
@@ -199,8 +203,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <GallerySection />
+      {/* Gallery Carousel Section */}
+      <GalleryCarousel />
+
+      {/* Feedback Form Section */}
+      <FeedbackForm />
+
+      {/* Feedbacks Display Section */}
+      <FeedbacksSection />
 
       {/* Footer */}
       <Footer />

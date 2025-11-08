@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";
 
 export const FundsManager = () => {
@@ -65,26 +66,30 @@ export const FundsManager = () => {
       </div>
 
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Donor Name</TableHead>
-              <TableHead>UTR ID</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Date & Time</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactions?.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>{transaction.donor_name}</TableCell>
-                <TableCell className="font-mono text-sm">{transaction.utr_id}</TableCell>
-                <TableCell className="font-semibold">₹{Number(transaction.amount).toFixed(2)}</TableCell>
-                <TableCell>{format(new Date(transaction.transaction_time), "PPp")}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <ScrollArea className="w-full">
+          <div className="min-w-[700px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="min-w-[150px]">Donor Name</TableHead>
+                  <TableHead className="min-w-[150px]">UTR ID</TableHead>
+                  <TableHead className="min-w-[100px]">Amount</TableHead>
+                  <TableHead className="min-w-[200px]">Date & Time</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {transactions?.map((transaction) => (
+                  <TableRow key={transaction.id}>
+                    <TableCell className="font-medium">{transaction.donor_name}</TableCell>
+                    <TableCell className="font-mono text-sm">{transaction.utr_id}</TableCell>
+                    <TableCell className="font-semibold">₹{Number(transaction.amount).toFixed(2)}</TableCell>
+                    <TableCell className="text-sm">{format(new Date(transaction.transaction_time), "PPp")}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );
