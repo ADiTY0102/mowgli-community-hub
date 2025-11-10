@@ -25,7 +25,7 @@ const Navbar1 = () => {
 
   return (
     <div className="flex justify-center w-full py-6 px-4">
-      <div className="flex items-center justify-between px-6 py-3 bg-background/95 backdrop-blur-sm rounded-full shadow-lg border w-full max-w-5xl relative z-10">
+      <div className="flex items-center justify-between px-6 py-3 bg-background/95 backdrop-blur-sm rounded-full shadow-lg border w-full max-w-5xl relative z-50">
         <Link to="/" className="flex items-center">
           <motion.div
             className="w-8 h-8 mr-3"
@@ -34,15 +34,11 @@ const Navbar1 = () => {
             whileHover={{ rotate: 10 }}
             transition={{ duration: 0.3 }}
           >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="16" fill="url(#paint0_linear)" />
-              <defs>
-                <linearGradient id="paint0_linear" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#FF9966" />
-                  <stop offset="1" stopColor="#FF5E62" />
-                </linearGradient>
-              </defs>
-            </svg>
+            <img 
+              src="/logo.png" 
+              alt="Mowglians Logo" 
+              className="w-full h-full rounded-full object-cover"
+            />
           </motion.div>
           <span className="text-xl font-bold text-foreground hidden sm:inline">Mowglians</span>
         </Link>
