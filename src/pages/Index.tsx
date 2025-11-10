@@ -11,51 +11,48 @@ import { Navbar1 } from "@/components/ui/navbar-1";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect } from "react";
-
 const Index = () => {
-  const { user } = useAuth();
+  const {
+    user
+  } = useAuth();
   const navigate = useNavigate();
 
   // Check if user is admin and redirect to dashboard
-  const { data: isAdmin } = useQuery({
+  const {
+    data: isAdmin
+  } = useQuery({
     queryKey: ["user-role", user?.id],
     queryFn: async () => {
       if (!user) return false;
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .maybeSingle();
+      const {
+        data
+      } = await supabase.from("user_roles").select("role").eq("user_id", user.id).eq("role", "admin").maybeSingle();
       return !!data;
     },
-    enabled: !!user,
+    enabled: !!user
   });
-
   useEffect(() => {
     if (isAdmin) {
       navigate("/admin");
     }
   }, [isAdmin, navigate]);
-
-  const { data: metrics } = useQuery({
+  const {
+    data: metrics
+  } = useQuery({
     queryKey: ["site-metrics"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("site_metrics")
-        .select("*")
-        .single();
-
+      const {
+        data,
+        error
+      } = await supabase.from("site_metrics").select("*").single();
       if (error) throw error;
       return data;
-    },
+    }
   });
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Navbar */}
-      <div className="fixed top-0 left-0 right-0 z-50">
-        <Navbar1 />
+      <div className="fixed top-0 left-0 right-0 z-50 rounded-lg">
+        <Navbar1 className="bg-slate-50" />
       </div>
 
       {/* Hero Video Section */}
@@ -63,32 +60,20 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
-              Mowglians
-            </h1>
+            
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
             </p>
             <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
-              {user ? (
-                <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
+              {user ? <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
                   <Link to="/profile">My Profile</Link>
-                </Button>
-              ) : (
-                <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
+                </Button> : <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
                   <Link to="/auth">Get Started</Link>
-                </Button>
-              )}
+                </Button>}
             </div>
           </div>
         </div>
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -176,8 +161,6 @@ const Index = () => {
 
       {/* Footer */}
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
