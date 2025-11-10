@@ -54,16 +54,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navbar */}
-        <Navbar1 />
+      <Navbar1 />
 
       {/* Hero Video Section */}
-      <section className="relative h-screen w-full overflow-hidden mt-20">
+      <section className=" h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
+            {/* <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
               MOWGLIANS
-            </h1>
+            </h1> */}
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
             </p>
@@ -72,19 +72,20 @@ const Index = () => {
                 <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
                   <Link to="/profile">My Profile</Link>
                 </Button>
+                
               ) : (
-                <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
+                <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full mt-10">
                   <Link to="/auth">Get Started</Link>
                 </Button>
               )}
             </div>
           </div>
         </div>
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/video.mp4" type="video/mp4" />
