@@ -52,7 +52,7 @@ const Index = () => {
   });
 
   return (
-    <div className="">
+    <div className="min-h-screen bg-background">
       {/* Navbar */}
         <Navbar1 />
 

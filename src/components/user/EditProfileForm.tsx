@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(profile?.profile_picture_url || null);
 
   // Update form data when profile loads
-  useState(() => {
+  useEffect(() => {
     if (profile) {
       setFormData({
         full_name: profile.full_name || "",
@@ -42,7 +42,7 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
       });
       setPreviewUrl(profile.profile_picture_url || null);
     }
-  });
+  }, [profile]);
 
   const updateMutation = useMutation({
     mutationFn: async () => {
@@ -55,7 +55,7 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
         console.log("Uploading new profile picture...");
         const fileExt = profilePicture.name.split('.').pop();
         const fileName = `${userId}-${Date.now()}.${fileExt}`;
-        const filePath = `${userId}/${fileName}`;
+        const filePath = `profiles/${userId}/${fileName}`;
 
         const { error: uploadError } = await supabase.storage
           .from('gallery_images')

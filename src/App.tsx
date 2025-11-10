@@ -10,11 +10,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Fundraising from "./pages/Fundraising";
 import AdoptPets from "./pages/AdoptPets";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
+const App = () => <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -31,7 +28,5 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
-  </QueryClientProvider>
-);
-
+  </QueryClientProvider>;
 export default App;
