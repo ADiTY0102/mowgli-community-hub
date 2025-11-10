@@ -60,10 +60,10 @@ const Index = () => {
       <section className=" h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
-          <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">
-            {/* <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
+          <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in mn-10">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
               MOWGLIANS
-            </h1> */}
+            </h1> <br /><br />
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today
             </p>
