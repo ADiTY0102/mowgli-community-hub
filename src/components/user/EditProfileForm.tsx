@@ -55,7 +55,7 @@ export const EditProfileForm = ({ userId }: { userId: string }) => {
         console.log("Uploading new profile picture...");
         const fileExt = profilePicture.name.split('.').pop();
         const fileName = `${userId}-${Date.now()}.${fileExt}`;
-        const filePath = `${userId}/${fileName}`;
+        const filePath = `profiles/${userId}/${fileName}`;
 
         const { error: uploadError } = await supabase.storage
           .from('gallery_images')

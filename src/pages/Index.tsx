@@ -52,7 +52,7 @@ const Index = () => {
   return <div className="min-h-screen bg-background">
       {/* Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 rounded-lg">
-        <Navbar1 className="bg-slate-50" />
+        <Navbar1 />
       </div>
 
       {/* Hero Video Section */}
