@@ -25,7 +25,7 @@ const Navbar1 = () => {
 
   return (
     <div className="flex justify-center w-full py-6 px-4">
-      <div className="flex items-center justify-between px-6 py-3 bg-background/95 backdrop-blur-sm rounded-full shadow-lg border w-full max-w-5xl relative z-50">
+      <div className="flex items-center justify-between px-6 py-3 bg-background/10 backdrop-blur-md rounded-full shadow-lg border border-border/20 w-full max-w-5xl relative z-50">
         <Link to="/" className="flex items-center">
           <motion.div
             className="w-8 h-8 mr-3"
