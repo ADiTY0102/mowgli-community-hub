@@ -52,11 +52,9 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="">
       {/* Navbar */}
-      <div className="fixed top-0 left-0 right-0 z-50">
         <Navbar1 />
-      </div>
 
       {/* Hero Video Section */}
       <section className="relative h-screen w-full overflow-hidden mt-20">
@@ -64,7 +62,7 @@ const Index = () => {
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in">
             <h1 className="text-4xl sm:text-6xl md:text-8xl mb-6 sm:mb-10 font-bold text-foreground drop-shadow-lg">
-              Mowglians
+              MOWGLIANS
             </h1>
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 font-medium drop-shadow">
               Give Love, Find Love - Adopt or Donate a Pet Today

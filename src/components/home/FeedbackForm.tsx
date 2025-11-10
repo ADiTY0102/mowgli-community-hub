@@ -48,7 +48,7 @@ export const FeedbackForm = () => {
         feedback_text: feedbackText,
         user_name: userProfile.full_name,
         designation: designation || "Pet Lover",
-        photo_url: userProfile.profile_picture_url || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde",
+        photo_url: userProfile.profile_picture_url || "./profile.jpg",
       });
 
       const { data, error } = await supabase.from("feedbacks").insert([
