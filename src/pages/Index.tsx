@@ -57,7 +57,7 @@ const Index = () => {
       <Navbar1 />
 
       {/* Hero Video Section */}
-      <section className=" h-screen w-full overflow-hidden">
+      <section className="h-screen w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background z-10" />
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="text-center space-y-4 sm:space-y-6 px-4 animate-fade-in mn-10">
@@ -72,7 +72,7 @@ const Index = () => {
                 <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full">
                   <Link to="/profile">My Profile</Link>
                 </Button>
-                
+
               ) : (
                 <Button size="lg" asChild className="shadow-lg hover:shadow-xl rounded-full mt-10">
                   <Link to="/auth">Get Started</Link>

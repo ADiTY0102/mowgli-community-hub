@@ -100,14 +100,14 @@ export const Footer = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-5 w-5" />
-                  <a href="mailto:adityabinjagermath12@gmail.com" className="hover:text-primary">
-                    adityabinjagermath12@gmail.com
+                  <a href="mailto:solapurpet@gmail.com" className="hover:text-primary">
+                    solapurpet@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-5 w-5" />
-                  <a href="tel:+919876543210" className="hover:text-primary">
-                    +91 98765 43210
+                  <a href="tel:+919923306625" className="hover:text-primary">
+                    +91 99233 06625
                   </a>
                 </div>
               </div>
