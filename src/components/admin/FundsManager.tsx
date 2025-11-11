@@ -32,7 +32,7 @@ export const FundsManager = () => {
     },
   });
 
-  const totalFunds = transactions?.reduce((sum, t) => sum + Number(t.amount), 0) || 0;
+  const totalFunds = Number(metrics?.total_funds || 0);
 
   if (transactionsLoading) return <div>Loading transactions...</div>;
 
