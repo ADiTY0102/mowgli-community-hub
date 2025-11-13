@@ -45,7 +45,7 @@ const Fundraising = () => {
   });
 
   const totalFunds = Number(metrics?.total_funds || 0);
-  const fundGoal = 100000; // Set a goal of ₹1,00,000
+  const fundGoal = Number(metrics?.fundraising_goal || 100000);
   const progressPercentage = Math.min((totalFunds / fundGoal) * 100, 100);
 
   const handleDonateClick = () => {
