@@ -64,7 +64,7 @@ export const UsersManager = () => {
   if (isLoading) return <div>Loading users...</div>;
 // updated
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border overflow-x-auto">
       <ScrollArea className="w-full">
         <div className="min-w-[800px]">
           <Table>
