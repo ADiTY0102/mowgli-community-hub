@@ -54,7 +54,7 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs defaultValue="users" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 h-auto gap-1">
             <TabsTrigger value="users">Users</TabsTrigger>
             <TabsTrigger value="adoptions">Adoptions</TabsTrigger>
             <TabsTrigger value="donations">Donations</TabsTrigger>
