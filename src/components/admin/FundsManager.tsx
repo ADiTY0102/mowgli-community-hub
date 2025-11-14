@@ -2,7 +2,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -165,47 +164,43 @@ export const FundsManager = () => {
         </Card>
       </div>
 
-      <div className="rounded-md border">
-        <ScrollArea className="w-full">
-          <div className="min-w-[700px]">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="min-w-[150px]">Donor Name</TableHead>
-                  <TableHead className="min-w-[150px]">UTR ID</TableHead>
-                  <TableHead className="min-w-[100px]">Amount</TableHead>
-                  <TableHead className="min-w-[200px]">Date & Time</TableHead>
-                  <TableHead className="min-w-[120px]">Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {transactions?.map((transaction) => (
-                  <TableRow key={transaction.id}>
-                    <TableCell className="font-medium">{transaction.donor_name}</TableCell>
-                    <TableCell className="font-mono text-sm">{transaction.utr_id}</TableCell>
-                    <TableCell className="font-semibold">₹{Number(transaction.amount).toFixed(2)}</TableCell>
-                    <TableCell className="text-sm">{format(new Date(transaction.transaction_time), "PPp")}</TableCell>
-                    <TableCell>
-                      <Select
-                        value={transaction.status || "success"}
-                        onValueChange={(value) => handleStatusChange(transaction.id, value)}
-                      >
-                        <SelectTrigger className="w-[110px]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="success">Success</SelectItem>
-                          <SelectItem value="failed">Failed</SelectItem>
-                          <SelectItem value="refunded">Refunded</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </ScrollArea>
+      <div className="rounded-md border overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="min-w-[150px]">Donor Name</TableHead>
+              <TableHead className="min-w-[150px]">UTR ID</TableHead>
+              <TableHead className="min-w-[100px]">Amount</TableHead>
+              <TableHead className="min-w-[200px]">Date & Time</TableHead>
+              <TableHead className="min-w-[120px]">Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {transactions?.map((transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell className="font-medium">{transaction.donor_name}</TableCell>
+                <TableCell className="font-mono text-sm">{transaction.utr_id}</TableCell>
+                <TableCell className="font-semibold">₹{Number(transaction.amount).toFixed(2)}</TableCell>
+                <TableCell className="text-sm">{format(new Date(transaction.transaction_time), "PPp")}</TableCell>
+                <TableCell>
+                  <Select
+                    value={transaction.status || "success"}
+                    onValueChange={(value) => handleStatusChange(transaction.id, value)}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="success">Success</SelectItem>
+                      <SelectItem value="failed">Failed</SelectItem>
+                      <SelectItem value="refunded">Refunded</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
