@@ -1,6 +1,6 @@
-# MOWGLIANS
+# MOWGLIONS
 
-MOWGLIANS is a community-driven pet adoption and donation platform designed to connect pet lovers with pets in need. The platform offers a range of features including pet adoption, pet donation, fundraising for animal welfare, and photo galleries of rescued pets. The project includes distinct user roles for admins and users with seamless integration to third-party payment gateways for donations.
+MOWGLIONS is a community-driven pet adoption and donation platform designed to connect pet lovers with pets in need. The platform offers a range of features including pet adoption, pet donation, fundraising for animal welfare, and photo galleries of rescued pets. The project includes distinct user roles for admins and users with seamless integration to third-party payment gateways for donations.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ MOWGLIANS is a community-driven pet adoption and donation platform designed to c
 
 ## Project Overview
 
-MOWGLIANS aims to simplify and streamline the process of pet adoption and donation. It provides users an engaging interface to view pets available for adoption or donation, raise funds, and share their experiences via a gallery. Admins manage users, validate adoption and donation requests, and oversee fundraising activities.
+MOWGLIONS aims to simplify and streamline the process of pet adoption and donation. It provides users an engaging interface to view pets available for adoption or donation, raise funds, and share their experiences via a gallery. Admins manage users, validate adoption and donation requests, and oversee fundraising activities.
 
 ## Features
 
@@ -115,3 +115,4 @@ This project is licensed under the MIT License.
 For any inquiries or support, please contact the project maintainer at adityabinjagermath12@gmail.com.
 
 ---
+
