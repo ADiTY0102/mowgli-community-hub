@@ -133,6 +133,7 @@ export type Database = {
           amount: number
           donor_name: string
           id: string
+          status: string | null
           transaction_time: string | null
           utr_id: string
         }
@@ -140,6 +141,7 @@ export type Database = {
           amount: number
           donor_name: string
           id?: string
+          status?: string | null
           transaction_time?: string | null
           utr_id: string
         }
@@ -147,6 +149,7 @@ export type Database = {
           amount?: number
           donor_name?: string
           id?: string
+          status?: string | null
           transaction_time?: string | null
           utr_id?: string
         }
@@ -233,6 +236,7 @@ export type Database = {
       }
       site_metrics: {
         Row: {
+          fundraising_goal: number | null
           id: number
           last_updated: string | null
           total_funds: number | null
@@ -240,6 +244,7 @@ export type Database = {
           total_pets_donated: number | null
         }
         Insert: {
+          fundraising_goal?: number | null
           id?: number
           last_updated?: string | null
           total_funds?: number | null
@@ -247,6 +252,7 @@ export type Database = {
           total_pets_donated?: number | null
         }
         Update: {
+          fundraising_goal?: number | null
           id?: number
           last_updated?: string | null
           total_funds?: number | null
