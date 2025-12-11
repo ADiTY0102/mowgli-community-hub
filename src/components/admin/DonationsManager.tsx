@@ -35,8 +35,6 @@ export const DonationsManager = () => {
       
       if (requestError) throw requestError;
 
-      // If approved, update pet status to approved for adoption
-      // If rejected, update pet status to rejected
       const request = requests?.find((r: any) => r.id === id);
       if (request?.pet_id) {
         const { error: petError } = await supabase
