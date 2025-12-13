@@ -60,7 +60,7 @@ const Fundraising = () => {
 
     const amountInPaise = Number(amount) * 100;
 
-    // Load Razorpay script
+   
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
